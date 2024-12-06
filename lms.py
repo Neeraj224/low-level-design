@@ -86,17 +86,33 @@ class Library:
             for book in self.books:
                 if book.title == searchTitle:
                     if self.books[book] > 0:
-                        print(f"'{book.title}' is available. We have {self.books[book]} copies.")
+                        print(f"'{book.title}' is available. We have {self.books[book]} copy(s).")
                         # TODO: Add a renting function
                         return
             else:
                 print(f"'{searchTitle}' is not available in the library")
         
-        # if searchAuthor:
-        #     for author in self.authors:
-        #         if author == searchAuthor:
-                    
-                
+        # search by author returns the books available by that
+        # particular author:
+        if searchAuthor:
+            for author in self.authors.keys():
+                if author == searchAuthor:
+                    print(f"{author}'s books: {self.authors[author]}.")
+                    return
+            
+            print(f"We have no books by {searchAuthor}.")
+            return
+        
+        # search by year returns the books taht were published in that
+        # particular  year:
+        if searchYear:
+            for year in self.years.keys():
+                if year == searchYear:
+                    print(f"Books published in {year}: {self.years[year]}.")
+                    return
+            
+            print(f"We have no books published in the year {searchYear}.")
+            return
 
 
 def main():
@@ -117,10 +133,21 @@ def main():
     atkins.add_book(book2)
     atkins.add_book(book3)
     atkins.add_book(book4)
+    atkins.add_book(Book("Go Set A Watchman", "Harper Lee", 2015))
+    atkins.add_book(Book("Go Set A Watchman", "Harper Lee", 2015))
     
     # atkins.list_books()
     atkins.list_books_by_author()
     atkins.list_books_by_year()
+    
+    # search books
+    atkins.search_library(searchTitle = "1984")
+    atkins.search_library(searchAuthor = "Harper Lee")
+    atkins.search_library(searchYear = 1949)
+    atkins.search_library(searchTitle = "Yellow Submarine")
+    atkins.search_library(searchAuthor = "Anais Nin")
+    atkins.search_library(searchYear = 1992)
+    atkins.search_library(searchTitle = "Go Set A Watchman")
 
 if __name__ == "__main__":
     main()
