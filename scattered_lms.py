@@ -35,12 +35,20 @@ class Library:
         self.books = {}
         self.authors = {}
         self.years = {}
+        self.copies = {}
     
     def add_book(self, book):
         if book in self.books:
             self.books[book] += 1
         else:
             self.books[book] = 1
+            
+            # if its a copy of the book, make sure we count it
+            if book.title not in self.copies:
+                self.copies[book.title] = 1
+            else:
+                self.copies[book.title] += 1
+                
             print(f"{book.title} added to the library!")
             
             # now we check if we have any other by this book's author:
@@ -85,8 +93,8 @@ class Library:
         if searchTitle:
             for book in self.books:
                 if book.title == searchTitle:
-                    if self.books[book] > 0:
-                        print(f"'{book.title}' is available. We have {self.books[book]} copy(s).")
+                    if self.copies[book.title] > 0:
+                        print(f"'{book.title}' is available. We have {self.copies[searchTitle]} copy(s).")
                         # TODO: Add a renting function
                         return
             else:
